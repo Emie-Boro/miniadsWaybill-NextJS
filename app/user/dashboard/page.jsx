@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
+const token = localStorage.getItem('miniads89283_token')
 
 const page = () => {
   const [locations, setLocations] = useState()
-  const token = window.localStorage.getItem('miniads89283_token')
 
   if (!token) redirect('/user/login')
 
