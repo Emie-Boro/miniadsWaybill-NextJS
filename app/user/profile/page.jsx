@@ -1,9 +1,14 @@
 'use client'
 import { jwtDecode } from "jwt-decode"
+import { useState } from "react"
 
 const page = () => {
-  const token = localStorage.getItem('miniads89283_token')
+  let token;
 
+  if(typeof window !== 'undefined'){
+    token = localStorage.getItem('miniads89283_token')
+  }
+  
   if (!token) redirect('/user/login')
 
   const user = jwtDecode(token).user

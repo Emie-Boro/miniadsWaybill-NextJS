@@ -29,6 +29,7 @@ const Header = () => {
                     <li><Link className='mr-5 hover:text-primary' href={'/waybill/location'}>Locations</Link></li>
                 </ul>
                 <ul className='flex items-center'>
+                    <li><Link className='mr-5 hover:text-primary' href={'/user/profile'}>Profile</Link></li>
                     <li><button className='mr-5 p-2 bg-light text-white hover:bg-semi' onClick={handleLogout}>Logout</button></li>
                 </ul>
             </nav>

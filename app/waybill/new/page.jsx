@@ -5,8 +5,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const page = () => {
-  const token = localStorage.getItem('miniads89283_token')
+  let token;
 
+  if(typeof window !== 'undefined'){
+    token = localStorage.getItem('miniads89283_token')
+  }
+  
   if (!token) redirect('/user/login')
 
   const [location, setLocation] = useState({

@@ -5,11 +5,16 @@ import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
-const token = localStorage.getItem('miniads89283_token')
 
 const page = () => {
   const [locations, setLocations] = useState()
 
+  let token;
+
+  if(typeof window !== 'undefined'){
+    token = localStorage.getItem('miniads89283_token')
+  }
+  
   if (!token) redirect('/user/login')
 
   const user = jwtDecode(token)
