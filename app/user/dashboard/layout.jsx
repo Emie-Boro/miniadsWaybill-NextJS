@@ -9,14 +9,14 @@ const Header = () => {
     const router = useRouter()
 
     useEffect(() => {
-        const token = localStorage.getItem('miniads89283_token')
+        const token = localStorage?.getItem('miniads89283_token')
         if (token) {
             setToken(token)
         }
     }, [token])
 
     const handleLogout = () => {
-        localStorage.removeItem('miniads89283_token')
+        localStorage?.removeItem('miniads89283_token')
         router.push('/user/login')
     }
 
