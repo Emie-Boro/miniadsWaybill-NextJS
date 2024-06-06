@@ -1,20 +1,23 @@
 'use client'
 import { useState, useEffect } from "react"
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const page = () => {
-    const token = sessionStorage.getItem('miniads89283_token')
-    if(token) redirect('/user/dashboard')
-    
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+const Page = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const router = useRouter();
 
-    const router = useRouter()
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const token = localStorage.getItem('miniads89283_token');
+            if (token) router.push('/user/dashboard');
+        }
+    }, [router]);
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/login`, {
             method: 'POST',
             headers: {
@@ -28,21 +31,21 @@ const page = () => {
             .then(response => {
                 if (!response.ok) {
                     toast('Email or Password is Incorrect');
+                    throw new Error('Login failed');
                 }
                 return response.json();
             })
             .then(data => {
                 if (data.token) {
-                    toast('Login Successful')
-                    sessionStorage.setItem('miniads89283_token', data.token)
-                    router.push('/user/dashboard')
+                    toast('Login Successful');
+                    localStorage.setItem('miniads89283_token', data.token);
+                    router.push('/user/dashboard');
                 }
             })
             .catch(err => {
-                toast(err.message)
-            })
+                toast(err.message);
+            });
     }
-
 
     return (
         <div>
@@ -50,12 +53,24 @@ const page = () => {
             <div className="mx-auto w-56">
                 <form className='text-sm' onSubmit={handleSubmit}>
                     <div className='flex flex-col mb-5'>
-                        <label htmlFor="">Email</label>
-                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='user@company.com' />
+                        <label htmlFor="email">Email</label>
+                        <input
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder='user@company.com'
+                        />
                     </div>
                     <div className='flex flex-col mb-5'>
-                        <label htmlFor="">Password</label>
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='secret password' />
+                        <label htmlFor="password">Password</label>
+                        <input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder='secret password'
+                        />
                     </div>
                     <button type="submit" className="bg-primary text-white p-2 hover:bg-light">Login</button>
                 </form>
@@ -64,4 +79,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page;
