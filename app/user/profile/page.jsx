@@ -1,11 +1,12 @@
 'use client'
+import { NextResponse } from "next/server"
 import { jwtDecode } from "jwt-decode"
 import { useState, useEffect } from "react"
 import { redirect } from "next/navigation"
 
 const page = () => {
   const [user, setUser] = useState()
-  const [token, setToken] = useState(localStorage.getItem('miniads89283_token') ?? '')
+  const token = sessionStorage.getItem('miniads89283_token')
 
   useEffect(() => {
     if (token) {

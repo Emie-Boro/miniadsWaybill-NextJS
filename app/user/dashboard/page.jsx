@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 const page = () => {
   const [locations, setLocations] = useState()
-  const [token, setToken] = useState(localStorage.getItem('miniads89283_token') ?? '')
+  const token = sessionStorage.getItem('miniads89283_token')
   
   if (!token) redirect('/user/login')
 

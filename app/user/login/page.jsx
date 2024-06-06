@@ -5,16 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const page = () => {
-    const [token, setToken] = useState(null)
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setToken(localStorage.getItem('miniads89283_token'))
-        }
-    }, [token])
-
-    if (token) redirect('/user/dashboard')
-
+    const token = sessionStorage.getItem('miniads89283_token')
+    if(token) redirect('/user/dashboard')
+    
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
@@ -41,7 +34,7 @@ const page = () => {
             .then(data => {
                 if (data.token) {
                     toast('Login Successful')
-                    localStorage.setItem('miniads89283_token', data.token)
+                    sessionStorage.setItem('miniads89283_token', data.token)
                     router.push('/user/dashboard')
                 }
             })
