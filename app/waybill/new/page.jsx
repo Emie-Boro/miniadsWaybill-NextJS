@@ -1,14 +1,23 @@
 'use client'
-import { useState } from "react"
-import { redirect } from "next/navigation";
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const page = () => {
+  const router = useRouter();
+  const [data, setData] = useState()
 
-  const token = sessionStorage.getItem('miniads89283_token')
-  
-  if (!token) redirect('/user/login')
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('miniads89283_token');
+      if (!token) {
+        router.push('/user/login');
+      } else {
+        setData(token)
+      }
+    }
+  }, [router]);  
 
   const [location, setLocation] = useState({
     state: '',
@@ -24,7 +33,7 @@ const page = () => {
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/waybill/new`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${data}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(location)
