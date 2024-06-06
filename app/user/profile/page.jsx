@@ -5,14 +5,14 @@ import { redirect } from "next/navigation"
 
 const page = () => {
   const [user, setUser] = useState()
+  const [token, setToken] = useState(localStorage.getItem('miniads89283_token') ?? '')
 
-  const token = window.localStorage.getItem('miniads89283_token');
+  useEffect(() => {
+    if (token) {
+      setUser(jwtDecode(token).user)
+    }
+  }, [token])
 
-  useEffect(()=>{
-    setUser(jwtDecode(token).user)
-  }, [])
-
-  
   if(!token) redirect('/user/login')
 
   return (
