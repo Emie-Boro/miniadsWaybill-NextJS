@@ -1,11 +1,18 @@
 'use client'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { redirect, useRouter } from "next/navigation";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const page = () => {
-    const token = localStorage.getItem('miniads89283_token')
+    const [token, setToken] = useState(null)
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setToken(localStorage.getItem('miniads89283_token'))
+        }
+    }, [token])
+
     if (token) redirect('/user/dashboard')
 
     const [email, setEmail] = useState()

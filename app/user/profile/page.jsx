@@ -1,23 +1,25 @@
 'use client'
 import { jwtDecode } from "jwt-decode"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { redirect } from "next/navigation"
 
 const page = () => {
-  let token;
+  const [user, setUser] = useState()
 
-  if(typeof window !== 'undefined'){
-    token = localStorage.getItem('miniads89283_token')
-  }
+  const token = window.localStorage.getItem('miniads89283_token');
+
+  useEffect(()=>{
+    setUser(jwtDecode(token).user)
+  }, [])
+
   
-  if (!token) redirect('/user/login')
-
-  const user = jwtDecode(token).user
+  if(!token) redirect('/user/login')
 
   return (
     <div>
       <div>
         <label htmlFor="">Name</label>
-        <h3>{user.shipper.name}</h3>
+        <h3 className="text-2xl font-bold">{user?.shipper.name}</h3>
       </div>
     </div>
   )

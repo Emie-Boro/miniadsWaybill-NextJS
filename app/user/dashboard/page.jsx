@@ -9,12 +9,8 @@ import Link from 'next/link';
 const page = () => {
   const [locations, setLocations] = useState()
 
-  let token;
+  const token = window.localStorage.getItem('miniads89283_token');
 
-  if(typeof window !== 'undefined'){
-    token = localStorage.getItem('miniads89283_token')
-  }
-  
   if (!token) redirect('/user/login')
 
   const user = jwtDecode(token)
