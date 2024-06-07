@@ -16,19 +16,16 @@ const page = () => {
     <div>
       <ToastContainer />
       <div className='mx-auto'>
-        <h1 className="text-xl font-bold">Miniads Store Waybill Locations</h1>
+        <h1 className="text-xl font-bold sm:text-sm sm:font-semibold">Miniads Store Waybill Locations</h1>
         {location?.map(item => (
           <div key={item._id} className='mb-5 hover:bg-light rounded border border-primary p-5'>
-            <div className='flex flex-row justify-between text-lg font-bold text-primary'>
-              <h3>{item.state}</h3>
-              <h3>{item.city}</h3>
-              <h3>{item.address}</h3>
-              <h3>{item.phone}</h3>
+            <div className='flex flex-wrap flex-row justify-between text-lg font-bold text-primary sm:text-sm'>
+              <h3 className='text-lg md:text-sm font-bold text-primary sm:text-sm'>{item.state}, {item.city}, {item.address}</h3>
             </div>
-            <div className='flex flex-row justify-between font-semibold'>
+            <div className='flex flex-wrap flex-row justify-between font-semibold sm:text-xs'>
               <p>NGN{item.price}</p>
               <p>Email: {item.email}</p>
-              <p>Verification: {item.verified}</p>
+              <p className=''>Verification: {item.verified}</p>
               <p>{item.company}</p>
             </div>
           </div>

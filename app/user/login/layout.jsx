@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 const Header = () => {
+    const [showMenu, setShowMenu] = useState(false)
     const [token, setToken] = useState()
 
     const router = useRouter()

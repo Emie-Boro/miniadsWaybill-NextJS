@@ -37,19 +37,17 @@ const Page = () => {
   return (
     <div className='mx-auto p-5'>
       <ToastContainer />
-      <h1 className='text-wrap text-2xl font-bold'>{user.shipper.name}</h1>
-      <h4>Your Waybill Locations</h4>
+      <h1 className='text-wrap text-2xl font-bold sm:text-lg'>{user.shipper.name}</h1>
+      <h4 className='sm:text-sm'>Your Waybill Locations</h4>
       <div>
         {locations?.map(item => (
           <div key={item._id} className='mb-5 rounded border border-primary p-5'>
-            <div className='flex flex-row justify-between text-lg font-bold text-primary'>
-              <h3>{item.state}, {item.city}, {item.address}</h3>
+            <div className='flex flex-row flex-wrap justify-between'>
+              <h3 className='text-lg md:text-sm font-bold text-primary sm:text-sm'>{item.state}, {item.city}, {item.address}</h3>
+              <p className='md:text-sm sm:text-xs'>NGN{item.price}</p>
+              <p className='md:text-sm sm:text-xs'>Verification: {item.verified}</p>
             </div>
-            <div className='flex flex-row justify-between font-semibold'>
-              <p>NGN{item.price}</p>
-              <p>Verification: {item.verified}</p>
-              <Link href={`/waybill/update/${item._id}`} className='p-2 bg-semi hover:bg-light'>Update</Link>
-            </div>
+            <button className='mt-2'><Link href={`/waybill/update/${item._id}`} className='text-sm p-2 bg-semi hover:bg-light sm:text-xs'>Update</Link></button>
           </div>
         ))}
       </div>
