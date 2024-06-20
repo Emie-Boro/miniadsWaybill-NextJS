@@ -30,7 +30,7 @@ const page = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/waybill/new`, {
+    fetch('/api/waybill/new', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${data}`,

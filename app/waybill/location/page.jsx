@@ -3,11 +3,12 @@ import { useState, useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const page = () => {
   const [location, setLocation] = useState()
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/waybill`)
+    fetch('/api/waybill')
       .then(response => response.json())
       .then(data => setLocation(data))
       .catch(err => toast(err.message))

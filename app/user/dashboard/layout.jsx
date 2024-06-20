@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter } from 'next/navigation'
+import Loading from './loading'
 
 const Header = () => {
     const [showMenu, setShowMenu] = useState(false)
@@ -66,7 +67,10 @@ export default function DashboardLayout({ children }) {
     return (
         <>
             <Header />
-            {children}
+            <Suspense fallback={<Loading />}>
+                {children}
+            </Suspense>
         </>
+
     )
 }

@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
@@ -19,7 +19,7 @@ const Page = () => {
       } else {
         setUser(jwtDecode(token).user)
 
-        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/waybill/user`, {
+        fetch('/api/waybill/user', {
           headers: {
             Authorization: `Bearer ${token}`,
           }

@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Page = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isloading, setIsLoading] = useState(false)
     const router = useRouter();
 
     useEffect(() => {
@@ -18,7 +19,10 @@ const Page = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/login`, {
+
+        setIsLoading(true)
+
+        fetch('/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -39,7 +43,8 @@ const Page = () => {
                 if (data.token) {
                     toast('Login Successful');
                     localStorage.setItem('miniads89283_token', data.token);
-                    router.push('/user/dashboard');
+                    // window.location.href = '/user/dashboard'
+                    router.push('/user/dashboard')
                 }
             })
             .catch(err => {
@@ -72,7 +77,7 @@ const Page = () => {
                             placeholder='secret password'
                         />
                     </div>
-                    <button type="submit" className="bg-primary text-white p-2 hover:bg-light">Login</button>
+                    <button type="submit" className="bg-primary text-white p-2 hover:bg-light">{isloading ? 'Loading...' : 'Login'}</button>
                 </form>
             </div>
         </div>
