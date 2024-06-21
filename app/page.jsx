@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { jwtDecode } from 'jwt-decode';
 
 const Header = () => {
   const [token, setToken] = useState()
@@ -11,11 +12,19 @@ const Header = () => {
   const router = useRouter()
 
   useEffect(() => {
-    const token = localStorage.getItem('miniads89283_token')
-    if (token) {
-      setToken(token)
+    function checkToken() {
+      const token = localStorage.getItem('miniads89283_token')
+      if (token) {
+        const timeRemaing = jwtDecode(token).exp * 1000 - Date.now();
+        if(timeRemaing <= 0) {
+          localStorage.removeItem('miniads89283_token')
+        }
+        setToken(token)
+      }
     }
-  }, [token])
+
+    checkToken()
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('miniads89283_token')

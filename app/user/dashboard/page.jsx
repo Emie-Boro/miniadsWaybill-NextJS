@@ -12,11 +12,18 @@ const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    function checkToken() {
       const token = localStorage.getItem('miniads89283_token');
       if (!token) {
         router.push('/user/login');
       } else {
+        const timeRemaing = jwtDecode(token).exp * 1000 - Date.now();
+        if (timeRemaing <= 0) {
+          console.log(`${timeRemaing} Remaining`)
+          toast('Token Expired...')
+          localStorage.removeItem('miniads89283_token')
+          router.push('/user/login');
+        }
         setUser(jwtDecode(token).user)
 
         fetch('/api/waybill/user', {
@@ -28,10 +35,12 @@ const Page = () => {
           .catch(err => toast(err.message));
       }
     }
-  }, [router]);
+
+    checkToken()
+  }, []);
 
   if (!user) {
-    return null; // Return null or a loading spinner while user is being fetched
+    return null;
   }
 
   return (

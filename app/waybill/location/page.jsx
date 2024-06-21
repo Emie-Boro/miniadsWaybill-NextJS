@@ -8,10 +8,14 @@ const page = () => {
   const [location, setLocation] = useState()
 
   useEffect(() => {
-    fetch('/api/waybill')
-      .then(response => response.json())
-      .then(data => setLocation(data))
-      .catch(err => toast(err.message))
+    const fetchWaybill = () => {
+      fetch('/api/waybill')
+        .then(response => response.json())
+        .then(data => setLocation(data))
+        .catch(err => toast(err.message))
+    }
+
+    fetchWaybill()
   }, [])
   return (
     <div>
